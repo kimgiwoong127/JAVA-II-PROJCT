@@ -24,6 +24,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'commons-io:commons-io:2.11.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
@@ -33,3 +34,55 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task generateMapFile(type: Copy) {
+    def outputDir = project.file('src/main/resources/map')
+    outputs.dir(outputDir)
+
+    doLast {
+        def content = """
+        private static void saveMap(File selectedFile) {
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter(selectedFile));
+                for (int y = 0; y < 12; y++) {
+                    for (int x = 0; x < 21; x++) {
+                        writer.print(map[y][x] + " ");
+                    }
+                    writer.println();
+                }
+                writer.close();
+                System.out.println("Map saved successfully.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private static void loadMap(File file) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                for (int y = 0; y < 12; y++) {
+                    String[] values = reader.readLine().trim().split(" ");
+                    for (int x = 0; x < 21; x++) {
+                        map[y][x] = Integer.parseInt(values[x]);
+                        if (map[y][x] != -1) {
+                            buttons[y][x].setIcon(new ImageIcon(palette[currentPage][map[y][x] % PALETTE_SIZE]));
+                        } else {
+                            buttons[y][x].setIcon(null);
+                        }
+                    }
+                }
+                reader.close();
+                System.out.println("Map loaded successfully.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        """
+
+        file("${outputDir}/MapUtils.java").write(content)
+    }
+}
+
+assemble.dependsOn generateMapFile
+
+

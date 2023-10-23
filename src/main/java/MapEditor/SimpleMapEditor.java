@@ -1,28 +1,33 @@
+package MapEditor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
+import org.apache.commons.io.FileUtils;
 
 public class SimpleMapEditor {
     private static final int TILE_SIZE = 32;
     private static final int PALETTE_SIZE = 42;
     private static final int TOTAL_PAGES = 3;
-
     private static BufferedImage[][] palette;
     private static int[][] map;
     private static JButton[][] buttons;
     private static int selectedTile = 0;
     private static int currentPage = 0;
     private static JPanel palettePanel;
-
     private static final int ERASER_TILE = -1;
 
     public static void main(String[] args) {
         palette = new BufferedImage[TOTAL_PAGES][PALETTE_SIZE];
         map = new int[12][21];
         buttons = new JButton[12][21];
+        for (int i = 0; i < map.length; i++) {
+            Arrays.fill(map[i], -1);
+        }
 
         for (int page = 0; page < TOTAL_PAGES; page++) {
             try {
@@ -62,7 +67,12 @@ public class SimpleMapEditor {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                saveMap();
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showSaveDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    saveMap(selectedFile);
+                }
             }
         });
 
@@ -70,7 +80,12 @@ public class SimpleMapEditor {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadMap();
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    loadMap(selectedFile);
+                }
             }
         });
 
@@ -109,7 +124,7 @@ public class SimpleMapEditor {
         buttonPanel.add(loadButton);
         buttonPanel.add(prevPageButton);
         buttonPanel.add(nextPageButton);
-        buttonPanel.add(eraseButton); // 지우개 버튼을 버튼 패널에 추가
+        buttonPanel.add(eraseButton);
 
         frame.add(palettePanel, BorderLayout.WEST);
         frame.add(mapPanel, BorderLayout.CENTER);
@@ -165,9 +180,9 @@ public class SimpleMapEditor {
         }
     }
 
-    private static void saveMap() {
+    private static void saveMap(File selectedFile) {
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter("map.txt"));
+            PrintWriter writer = new PrintWriter(new FileWriter(selectedFile));
             for (int y = 0; y < 12; y++) {
                 for (int x = 0; x < 21; x++) {
                     writer.print(map[y][x] + " ");
@@ -176,14 +191,19 @@ public class SimpleMapEditor {
             }
             writer.close();
             System.out.println("Map saved successfully.");
+
+            // 프로젝트 리소스 디렉토리에 선택한 파일을 복사
+            File destinationFile = new File("src/main/resources/map/" + selectedFile.getName());
+            FileUtils.copyFile(selectedFile, destinationFile);
+            System.out.println("Map file copied to resources directory.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void loadMap() {
+    private static void loadMap(File selectedFile) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("map.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
             for (int y = 0; y < 12; y++) {
                 String[] values = reader.readLine().trim().split(" ");
                 for (int x = 0; x < 21; x++) {
