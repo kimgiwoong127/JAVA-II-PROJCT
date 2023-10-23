@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 public class SimpleMapEditor {
     private static final int TILE_SIZE = 32;
-    private static final int PALETTE_SIZE = 42; // 각 팔레트 페이지에 42개의 타일이 있음
-    private static final int TOTAL_PAGES = 3; // 총 3개의 팔레트 페이지
+    private static final int PALETTE_SIZE = 42;
+    private static final int TOTAL_PAGES = 3;
 
     private static BufferedImage[][] palette;
     private static int[][] map;
@@ -17,13 +17,13 @@ public class SimpleMapEditor {
     private static int currentPage = 0;
     private static JPanel palettePanel;
 
-    public static void main(String[] args) {
-        // Load images into the palette
-        palette = new BufferedImage[TOTAL_PAGES][PALETTE_SIZE];
-        map = new int[10][10];
-        buttons = new JButton[10][10];
+    private static final int ERASER_TILE = -1;
 
-        // Load tiles for each palette page
+    public static void main(String[] args) {
+        palette = new BufferedImage[TOTAL_PAGES][PALETTE_SIZE];
+        map = new int[12][21];
+        buttons = new JButton[12][21];
+
         for (int page = 0; page < TOTAL_PAGES; page++) {
             try {
                 for (int i = 0; i < PALETTE_SIZE; i++) {
@@ -41,20 +41,20 @@ public class SimpleMapEditor {
         updatePalette();
 
         JPanel mapPanel = new JPanel();
-        mapPanel.setLayout(new GridLayout(10, 10));
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
-                buttons[x][y] = new JButton();
-                buttons[x][y].setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
+        mapPanel.setLayout(new GridLayout(12, 21));
+        for (int y = 0; y < 12; y++) {
+            for (int x = 0; x < 21; x++) {
+                buttons[y][x] = new JButton();
+                buttons[y][x].setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
                 final int buttonX = x;
                 final int buttonY = y;
-                buttons[x][y].addActionListener(new ActionListener() {
+                buttons[y][x].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         placeTile(buttonX, buttonY);
                     }
                 });
-                mapPanel.add(buttons[x][y]);
+                mapPanel.add(buttons[y][x]);
             }
         }
 
@@ -96,11 +96,20 @@ public class SimpleMapEditor {
             }
         });
 
+        JButton eraseButton = new JButton("Eraser");
+        eraseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectEraser();
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
         buttonPanel.add(prevPageButton);
         buttonPanel.add(nextPageButton);
+        buttonPanel.add(eraseButton); // 지우개 버튼을 버튼 패널에 추가
 
         frame.add(palettePanel, BorderLayout.WEST);
         frame.add(mapPanel, BorderLayout.CENTER);
@@ -110,46 +119,15 @@ public class SimpleMapEditor {
         frame.setVisible(true);
     }
 
-    private static void selectTile(int tileIndex) {
-        selectedTile = tileIndex + currentPage * PALETTE_SIZE;
-    }
-
-    private static void placeTile(int x, int y) {
-        map[x][y] = selectedTile;
-        buttons[x][y].setIcon(new ImageIcon(palette[currentPage][selectedTile % PALETTE_SIZE]));
-    }
-
-    private static void saveMap() {
-        try {
-            PrintWriter writer = new PrintWriter(new FileWriter("map.txt"));
-            for (int x = 0; x < 10; x++) {
-                for (int y = 0; y < 10; y++) {
-                    writer.print(map[x][y] + " ");
-                }
-                writer.println();
-            }
-            writer.close();
-            System.out.println("Map saved successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
+    private static String getPageName(int page) {
+        if (page == 0) {
+            return "forest";
+        } else if (page == 1) {
+            return "cave";
+        } else if (page == 2) {
+            return "hell";
         }
-    }
-
-    private static void loadMap() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("map.txt"));
-            for (int x = 0; x < 10; x++) {
-                String[] values = reader.readLine().trim().split(" ");
-                for (int y = 0; y < 10; y++) {
-                    map[x][y] = Integer.parseInt(values[y]);
-                    buttons[x][y].setIcon(new ImageIcon(palette[currentPage][map[x][y] % PALETTE_SIZE]));
-                }
-            }
-            reader.close();
-            System.out.println("Map loaded successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return "";
     }
 
     private static void updatePalette() {
@@ -169,14 +147,58 @@ public class SimpleMapEditor {
         palettePanel.repaint();
     }
 
-    private static String getPageName(int page) {
-        if (page == 0) {
-            return "forest";
-        } else if (page == 1) {
-            return "cave";
-        } else if (page == 2) {
-            return "hell";
+    private static void selectTile(int tileIndex) {
+        selectedTile = tileIndex + currentPage * PALETTE_SIZE;
+    }
+
+    private static void selectEraser() {
+        selectedTile = ERASER_TILE;
+    }
+
+    private static void placeTile(int x, int y) {
+        if (selectedTile == ERASER_TILE) {
+            map[y][x] = -1;
+            buttons[y][x].setIcon(null);
+        } else {
+            map[y][x] = selectedTile;
+            buttons[y][x].setIcon(new ImageIcon(palette[currentPage][selectedTile % PALETTE_SIZE]));
         }
-        return "";
+    }
+
+    private static void saveMap() {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("map.txt"));
+            for (int y = 0; y < 12; y++) {
+                for (int x = 0; x < 21; x++) {
+                    writer.print(map[y][x] + " ");
+                }
+                writer.println();
+            }
+            writer.close();
+            System.out.println("Map saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadMap() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("map.txt"));
+            for (int y = 0; y < 12; y++) {
+                String[] values = reader.readLine().trim().split(" ");
+                for (int x = 0; x < 21; x++) {
+                    map[y][x] = Integer.parseInt(values[x]);
+                    if (map[y][x] != -1) {
+                        buttons[y][x].setIcon(new ImageIcon(palette[currentPage][map[y][x] % PALETTE_SIZE]));
+                    } else {
+                        buttons[y][x].setIcon(null);
+                    }
+                }
+            }
+            reader.close();
+            System.out.println("Map loaded successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
