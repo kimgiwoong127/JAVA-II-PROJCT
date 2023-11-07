@@ -1,78 +1,100 @@
 package Anmation;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Character extends JPanel {
     private static final int CHARACTER_WIDTH = 80;
     private static final int CHARACTER_HEIGHT = 80;
-    private static final int DELTA_X = 5;
-    private static final int JUMP_HEIGHT = 50;
+    private int Delta_X = 5;
+    private int x = 220; // x 좌표 값을 변경
+    private int y = 220; // y 좌표 값을 변경
 
-    private int x = 100;
-    private int y = 100;
-    private int currentFrame = 0;
-    private boolean isJumping = false;
-
+    private boolean isWalking = false;
+    private Walk walk;
+    private Idle idle;
+    private Move move;
+    
     public Character() {
-        setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
+        walk = new Walk();
+        idle = new Idle();
+        idle.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+        walk.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+
+        move = new Move(this);
+        
+        add(idle);
+        
         Timer timer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentFrame = (currentFrame + 1) % 4;
-                repaint();
+                if (isWalking) {
+                    walk.repaint();
+                } else {
+                    idle.repaint();
+                }
             }
         });
         timer.start();
-
+        
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_LEFT) {
-                    x = Math.max(0, x - DELTA_X);
-                } else if (keyCode == KeyEvent.VK_RIGHT) {
-                    x = Math.min(getWidth() - CHARACTER_WIDTH, x + DELTA_X);
-                } else if (keyCode == KeyEvent.VK_SPACE && !isJumping) {
-                    jump();
+                if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+                    isWalking = true;
+                    remove(idle);
+                    add(walk);
+                    revalidate();
+                    repaint();
                 }
-                repaint();
+                
+                if (isWalking) {
+                    if (keyCode == KeyEvent.VK_LEFT) {
+                        move.moveLeft();
+                    } else if (keyCode == KeyEvent.VK_RIGHT) {
+                        move.moveRight();
+                    }
+                }
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+                    isWalking = false;
+                    remove(walk);
+                    add(idle);
+                    revalidate();
+                    repaint();
+                }
             }
         });
+        
         setFocusable(true);
+        requestFocus();
     }
-
-    private void jump() {
-        isJumping = true;
-        int originalY = y;
-        for (int i = 0; i < JUMP_HEIGHT; i++) {
-            y = Math.max(0, y - 1);
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            repaint();
-        }
-        for (int i = 0; i < JUMP_HEIGHT; i++) {
-            y = Math.min(getHeight() - CHARACTER_HEIGHT, y + 1);
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            repaint();
-        }
-        isJumping = false;
-        y = originalY;
-        repaint();
-    }
-
+    
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        ImageIcon icon = new ImageIcon("image/Player/1 Pink_Monster_idle_" + currentFrame + ".png");
-        g.drawImage(icon.getImage(), x, y, null);
+    public Dimension getPreferredSize() {
+        return new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT);
+    }
+    
+    public int getDeltaX() {
+        return Delta_X;
+    }
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public int getCharacterWidth() {
+        return CHARACTER_WIDTH;
     }
 }
