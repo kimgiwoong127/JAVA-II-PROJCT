@@ -17,7 +17,7 @@ public class Walk extends JPanel {
     private Timer timer;
 
     public Walk() {
-        walkFrames = new ImageIcon[6]; // 6 프레임의 walk 애니메이션
+        walkFrames = new ImageIcon[6]; // 움직이는 애니메이션
         for (int i = 0; i < 6; i++) {
             walkFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Walk_6/Pink_Monster_Walk_" + i + ".png");
         }

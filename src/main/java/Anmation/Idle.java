@@ -17,7 +17,7 @@ public class Idle extends JPanel {
     private Timer timer;
 
     public Idle() {
-        idleFrames = new ImageIcon[4]; // 4 프레임의 idle 애니메이션
+        idleFrames = new ImageIcon[4];  // 가만히 있는 에니메이션
         for (int i = 0; i < 4; i++) {
             idleFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Idle/Pink_Monster_Idle_" + i + ".png");
         }

@@ -1,7 +1,9 @@
 package Menu;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class RankingUI extends JFrame {
     public RankingUI() {

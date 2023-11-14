@@ -13,9 +13,8 @@ public class Character extends JPanel {
     private static final int CHARACTER_WIDTH = 80;
     private static final int CHARACTER_HEIGHT = 80;
     private int Delta_X = 5;
-    private int x = 220; // x 좌표 값을 변경
-    private int y = 220; // y 좌표 값을 변경
-
+    private int x = 220;
+    private int y = 220;
     private boolean isWalking = false;
     private Walk walk;
     private Idle idle;

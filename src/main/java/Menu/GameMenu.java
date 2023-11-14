@@ -1,7 +1,24 @@
 package Menu;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+
+//AWT
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+//Swing
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 class BackgroundPanel extends JPanel {
     private Image background;
@@ -9,12 +26,16 @@ class BackgroundPanel extends JPanel {
     private Image scaledLogo;
     private Image rankingIcon;
     private Image settingIcon;
+    private JLabel goldLabel;
 
     public BackgroundPanel(String fileName) {
         background = new ImageIcon(fileName).getImage();
         logo = new ImageIcon("image/game-ui/5 Logo/Logo.png").getImage();
 
-        // 로고 이미지 크기 조절
+        goldLabel = new JLabel("Gold: Loading...");
+        goldLabel.setForeground(Color.WHITE);
+        add(goldLabel);
+
         int LogoWidth = 800;
         int LogoHeight = 400;
         scaledLogo = logo.getScaledInstance(LogoWidth, LogoHeight, Image.SCALE_SMOOTH);
@@ -27,31 +48,35 @@ class BackgroundPanel extends JPanel {
         
     }
 
+    public void updateGoldInfo(int CoinAmount) {
+        goldLabel.setText("COIN: " + CoinAmount);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = getWidth();
         int height = getHeight();
-        g.drawImage(background, 0, 0, width, height, this); 
+        g.drawImage(background, 0, 0, width, height, this);
 
         int x = (width - scaledLogo.getWidth(this)) / 2;
         int y = 50; // 로고를 조금 더 위로 올림
         g.drawImage(scaledLogo, x, y, this);
 
-        // 세팅 아이콘 위치 지정
         int settingIconWidth = settingIcon.getWidth(this);
         int settingIconHeight = settingIcon.getHeight(this);
         int settingIconX = 10; // 왼쪽 여백 10픽셀
         int settingIconY = height - settingIconHeight - 10; // 아래 여백 10픽셀
         g.drawImage(settingIcon, settingIconX, settingIconY, this);
 
+        goldLabel.setBounds(1250, 10, 200, 20);
+    
 }
 }
 
 public class GameMenu extends JFrame implements ActionListener {
     private JButton startButton;
     private JButton rankingButton;
-    // private SoundPlayer backgroundMusic;
 
     public GameMenu() {
         setTitle("게임 초기 메뉴");
@@ -79,13 +104,11 @@ public class GameMenu extends JFrame implements ActionListener {
         rankingButton.setFocusPainted(false);
         rankingButton.addActionListener(this);
 
-        rankingButton.setPreferredSize(new Dimension(newIconWidth, newIconHeight));
-
-        int rankingiconX = panel.getWidth() - newIconWidth - 10;
-        int rankingiconY = panel.getHeight() - newIconHeight - 10;
-        rankingButton.setBounds(rankingiconX, rankingiconY, newIconWidth, newIconHeight);
-
-        panel.add(rankingButton);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;  // 설정 아이콘이 가운데 정렬되게 함
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10, 1200, -610, 10);  // 여백 추가
+        panel.add(rankingButton, gbc);
     }
 
     @Override
@@ -108,8 +131,9 @@ public class GameMenu extends JFrame implements ActionListener {
         JFrame rankingFrame = new RankingUI();
         rankingFrame.setVisible(true);
     }
-
     public static void main(String[] args) {
-        new GameMenu();
+        SwingUtilities.invokeLater(() -> {
+            new GameMenu();
+        });
     }
 }
