@@ -40,7 +40,7 @@ public class BeforeAfter extends JFrame {
 
         add(mainPanel);
         pack();
-        setLocationRelativeTo(null); // 화면 중앙에 창 표시
+        setLocationRelativeTo(null);
         setVisible(true);
 
         // 이미지 슬라이싱
@@ -63,7 +63,7 @@ public class BeforeAfter extends JFrame {
     
                     try {
                         ImageIO.write(subImage, "png", new File(outputFilePath));
-                        afterPanel.addImage(subImage);
+                        SwingUtilities.invokeLater(() -> afterPanel.addImage(subImage));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

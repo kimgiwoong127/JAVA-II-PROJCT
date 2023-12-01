@@ -1,4 +1,4 @@
-package Anmation;
+package Main.Anmation;
 
 import javax.swing.JFrame;
 
@@ -8,7 +8,7 @@ public class Launcher {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Character character = new Character();
         frame.add(character);
-        frame.setSize(300, 300);
+        frame.setSize(80, 80);
         frame.setVisible(true);
     }
 }

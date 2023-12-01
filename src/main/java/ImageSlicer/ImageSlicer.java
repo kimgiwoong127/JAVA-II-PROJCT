@@ -9,13 +9,13 @@ import javax.imageio.ImageIO;
 public class ImageSlicer {
 
     public static void main(String[] args) {
-        String inputFilePath = "image/Player/1 Pink_Monster/Pink_Monster_Walk_6.png";
+        String inputFilePath = "image/Player/1 Pink_Monster/Pink_Monster_Jump_8.png";
         int pixelSize = 32; // 각 부분 이미지의 크기
 
         try {
             BufferedImage originalImage = ImageIO.read(new File(inputFilePath));
 
-            int numFrames = 6; // 총 프레임 수
+            int numFrames = 8; // 총 프레임 수
 
             int frameWidth = originalImage.getWidth() / numFrames;
 
@@ -26,7 +26,7 @@ public class ImageSlicer {
                         int y = i * pixelSize;
 
                         BufferedImage subImage = originalImage.getSubimage(x, y, pixelSize, pixelSize);
-                        String outputFilePath = "image/Player/1 Pink_Monster/Pink_Monster_Walk_6/Pink_Monster_Walk_" + k + ".png";
+                        String outputFilePath = "image/Player/1 Pink_Monster/Pink_Monster_Jump_8/Pink_Monster_Jump_" + k + ".png";
 
                         ImageIO.write(subImage, "png", new File(outputFilePath));
                     }
