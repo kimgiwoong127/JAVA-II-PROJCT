@@ -10,7 +10,6 @@ public class RankingUI extends JFrame {
         setTitle("랭킹");
         setSize(400, 600);
 
-        // 배경 이미지를 불러옵니다.
         ImageIcon backgroundImage = new ImageIcon("image/game-ui/Wondow2/window_05.png");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setBounds(0, 0, backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
