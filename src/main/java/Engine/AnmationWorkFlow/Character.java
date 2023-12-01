@@ -1,4 +1,4 @@
-package Main.Anmation;
+package Engine.AnmationWorkFlow;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -38,7 +38,7 @@ public class Character extends JPanel {
         jump.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
 
         add(idle);
-
+        
         Timer timer = new Timer(600, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

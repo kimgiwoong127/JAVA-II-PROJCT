@@ -1,14 +1,14 @@
-package Main.Anmation;
+package Engine.AnmationWorkFlow;
 
 import javax.swing.JFrame;
 
 public class Launcher {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Test");
+        JFrame frame = new JFrame("Animation WorkFlow");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Character character = new Character();
         frame.add(character);
-        frame.setSize(80, 80);
+        frame.setSize(200, 200);
         frame.setVisible(true);
     }
 }

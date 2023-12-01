@@ -1,4 +1,4 @@
-package Main;
+package Game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 
 class BackgroundPanel extends JPanel {
     private Image background;
@@ -169,6 +170,9 @@ public class GameMenu extends JFrame implements ActionListener {
 
     private void playGame() {
         JOptionPane.showMessageDialog(this, "게임을 시작합니다!");
+        Play play = new Play();
+        play.setVisible(true);
+        dispose();
     }
 
     private void showRankingUI() {

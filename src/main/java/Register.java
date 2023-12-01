@@ -1,8 +1,22 @@
-import java.awt.*;
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+
+import Game.GameMenu;
 
 public class Register extends JFrame {
     private JTextField idField;
@@ -70,6 +84,12 @@ public class Register extends JFrame {
                 String password = passField.getText();
                 String nickname = nicknameField.getText();
                 System.out.println("ID: " + id + ", Password: " + password + ", Nickname: " + nickname);
+
+                // 현재 창 닫기
+                dispose();
+
+                // GameMenu 창 열기
+                SwingUtilities.invokeLater(() -> new GameMenu());
             }
 
             @Override
@@ -126,6 +146,15 @@ public class Register extends JFrame {
         });
     }
 }
+
+class GameMenuFrame implements Runnable {
+    @Override
+    public void run() {
+        JFrame gameMenu = new GameMenu();
+        gameMenu.setVisible(true);
+    }
+}
+
 
 class BackgroundPanel extends JPanel {
     private Image background;
