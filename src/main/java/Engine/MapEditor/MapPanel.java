@@ -1,13 +1,17 @@
-package MapEditor;
+package Engine.MapEditor;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class MapPanel extends JPanel {
 
@@ -16,7 +20,7 @@ public class MapPanel extends JPanel {
     private BufferedImage[] tileImages; // 타일 이미지 배열
 
     public MapPanel() {
-        loadMapDataFromFile("src/main/resources/map/map_forest1"); // 맵 데이터 로드
+        loadMapDataFromFile("src/main/resources/map/forest1"); // 맵 데이터 로드
         loadTileImages(); // 타일 이미지 로드
     }
 
