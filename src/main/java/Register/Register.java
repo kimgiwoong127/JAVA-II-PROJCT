@@ -8,12 +8,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import Game.GameMenu;
@@ -95,15 +90,17 @@ public class Register extends JFrame {
                 // 회원가입 정보를 데이터베이스에 등록
                 if (RegisterDAO.registerUser(user)) {
                     System.out.println("회원가입 성공");
+                    JOptionPane.showMessageDialog(Register.this, "회원가입 성공");
                 } else {
                     System.out.println("회원가입 실패");
+                    JOptionPane.showMessageDialog(Register.this, "회원가입 실패");
                 }
 
                 // 현재 창 닫기
                 dispose();
 
                 // GameMenu 창 열기
-                SwingUtilities.invokeLater(() -> new GameMenu());
+                SwingUtilities.invokeLater(() -> new Login());
             }
 
             @Override
@@ -161,11 +158,11 @@ public class Register extends JFrame {
     }
 }
 
-class GameMenuFrame implements Runnable {
+class LoginFrame implements Runnable {
     @Override
     public void run() {
-        JFrame gameMenu = new GameMenu();
-        gameMenu.setVisible(true);
+        JFrame Login = new Login();
+        Login.setVisible(true);
     }
 }
 
