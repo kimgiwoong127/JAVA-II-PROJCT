@@ -1,4 +1,4 @@
-
+package Register;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -80,10 +80,24 @@ public class Register extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // 회원가입 버튼 클릭 시 아이디, 비밀번호, 닉네임을 콘솔에 출력
+
                 String id = idField.getText();
                 String password = passField.getText();
                 String nickname = nicknameField.getText();
                 System.out.println("ID: " + id + ", Password: " + password + ", Nickname: " + nickname);
+
+                // 사용자 정보를 DTO에 저장
+                RegisterDTO user = new RegisterDTO(0, id, password, nickname);
+                user.setId(id);
+                user.setPassword(password);
+                user.setNickname(nickname);
+
+                // 회원가입 정보를 데이터베이스에 등록
+                if (RegisterDAO.registerUser(user)) {
+                    System.out.println("회원가입 성공");
+                } else {
+                    System.out.println("회원가입 실패");
+                }
 
                 // 현재 창 닫기
                 dispose();
