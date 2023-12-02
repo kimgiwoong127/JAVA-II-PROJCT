@@ -20,7 +20,7 @@ public class MapPanel extends JPanel {
     private BufferedImage[] tileImages; // 타일 이미지 배열
 
     public MapPanel() {
-        loadMapDataFromFile("src/main/resources/map/forest1"); // 맵 데이터 로드
+        loadMapDataFromFile("src/main/resources/map/map_forest1"); // 맵 데이터 로드
         loadTileImages(); // 타일 이미지 로드
     }
 
@@ -109,8 +109,9 @@ public class MapPanel extends JPanel {
 
             MapPanel mapPanel = new MapPanel();
             frame.add(mapPanel);
-
-            frame.pack(); // 크기 자동 조정
+            int width = 688;
+            int height = 400;
+            frame.setSize(width, height);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
