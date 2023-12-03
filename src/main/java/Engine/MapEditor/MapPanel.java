@@ -20,7 +20,7 @@ public class MapPanel extends JPanel {
     private BufferedImage[] tileImages; // 타일 이미지 배열
 
     public MapPanel() {
-        loadMapDataFromFile("src/main/resources/map/map_forest1"); // 맵 데이터 로드
+        loadMapDataFromFile("src/main/resources/map/forest1"); // 맵 데이터 로드
         loadTileImages(); // 타일 이미지 로드
     }
 

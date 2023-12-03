@@ -200,7 +200,7 @@ public class SimpleObjectEditor {
             System.out.println("Map saved successfully.");
 
             // 프로젝트 리소스 디렉토리에 선택한 파일을 복사
-            File destinationFile = new File("src/main/resources/map/" + selectedFile.getName());
+            File destinationFile = new File("src/main/resources/object/" + selectedFile.getName());
             FileUtils.copyFile(selectedFile, destinationFile);
             System.out.println("Map file copied to resources directory.");
         } catch (IOException e) {
