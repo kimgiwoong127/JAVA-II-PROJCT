@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 import Engine.MapEditor.CombinedPanel;
 
 public class Play extends JFrame {
-    public Play() {
+    public Play(String Name) {
         CombinedPanel combinedPanel = new CombinedPanel();
         combinedPanel.setSize(688, 400);
 
@@ -14,7 +14,7 @@ public class Play extends JFrame {
         combinedPanel.setLayout(null);
 
         // Create an instance of Player class
-        Player player = new Player();
+        Player player = new Player(Name);
 
         // Add the player panel to combinedPanel
         combinedPanel.add(player.getPlayerPanel());
@@ -31,6 +31,6 @@ public class Play extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Play());
+        SwingUtilities.invokeLater(() -> new Play("NULL"));
     }
 }

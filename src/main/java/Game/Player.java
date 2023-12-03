@@ -24,23 +24,40 @@ public class Player {
     private int x = 0;
     private int y = 288;
     private int speed = 2;
-    private boolean isWalk = false;
+    private boolean isWalkL = false;
+    private boolean isWalkR = false;
     private boolean isJump = false;
     private boolean isAttack = false;
     private boolean isClimb = false;
     private Timer jumpTimer;
-    private int jumpHeight = 50;
+    private int jumpHeight = 40;
+    private int originY;
+    
+    public Player(String Name) {
+        originY = y;
 
-    public Player() {
-        idleCharacter = new Idle("image\\Player\\1 Pink_Monster\\Pink_Monster_Idle\\Pink_Monster_idle_");
+        if (Name == "pink") {
+            idleCharacter = new Idle("image\\Player\\1 Pink_Monster\\Pink_Monster_Idle\\Pink_Monster_idle_");
+            walkingCharacter = new Walk("image\\Player\\1 Pink_Monster\\Pink_Monster_Walk_6\\Pink_Monster_Walk_");
+            jumpingCharacter = new Jump("image\\Player\\1 Pink_Monster\\Pink_Monster_Jump\\Pink_Monster_jump_");
+            attack2Character = new Attack("image\\Player\\1 Pink_Monster\\Pink_Monster_Attack2_6\\Pink_Monster_Attack2_");
+            climbingCharacter = new Climb("image\\Player\\1 Pink_Monster\\Pink_Monster_Climb_4\\Pink_Monster_Climb_");
+        }
+        else if (Name == "owlet") {
+            idleCharacter = new Idle("image/Player/2 Owlet_Monster/Owlet_Monster_Idle/Owlet_Monster_Idle__");
+            walkingCharacter = new Walk("image/Player/2 Owlet_Monster/Owlet_Monster_Walk/Owlet_Monster_Walk__");
+            jumpingCharacter = new Jump("image/Player/2 Owlet_Monster/Owlet_Monster_Jump/Owlet_Monster_Jump__");
+            attack2Character = new Attack("image/Player/3 Dude_Monster/Dude_Monster_Attack2/Dude_Monster_Attack2__");
+            climbingCharacter = new Climb("image/Player/2 Owlet_Monster/Owlet_Monster_Climb/Owlet_Monster_Climb__");
+        }
 
-        walkingCharacter = new Walk("image\\Player\\1 Pink_Monster\\Pink_Monster_Walk_6\\Pink_Monster_Walk_");
-
-        jumpingCharacter = new Jump("image\\Player\\1 Pink_Monster\\Pink_Monster_Jump\\Pink_Monster_jump_");
-
-        attack2Character = new Attack("image\\Player\\1 Pink_Monster\\Pink_Monster_Attack2_6\\Pink_Monster_Attack2_");
-
-        climbingCharacter = new Climb("image\\Player\\1 Pink_Monster\\Pink_Monster_Climb_4\\Pink_Monster_Climb_");
+        else if (Name == "dude") {
+            idleCharacter = new Idle("image/Player/3 Dude_Monster/Dude_Monster_Idle/Dude_Monster_Idle__");
+            walkingCharacter = new Walk("image/Player/3 Dude_Monster/Dude_Monster_Walk/Dude_Monster_Walk__");
+            jumpingCharacter = new Jump("image/Player/3 Dude_Monster/Dude_Monster_Jump/Dude_Monster_Jump__");
+            attack2Character = new Attack("image/Player/3 Dude_Monster/Dude_Monster_Attack/Dude_Monster_Attack2__");
+            climbingCharacter = new Climb("image/Player/3 Dude_Monster/Dude_Monster_Climb/Dude_Monster_Climb__");
+        }
 
         idleCharacter.setBounds(x, y, 80, 80);
 
@@ -62,7 +79,8 @@ public class Player {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                isWalk = false;
+                isWalkL = false;
+                isWalkR = false;
                 isJump = false;
                 isAttack = false;
                 isClimb = false;
@@ -84,23 +102,24 @@ public class Player {
     private void handleKeyPress(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_LEFT) {
-            isWalk = true;
+            isWalkL = true;
             movePlayer(-speed, 0);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            isWalk = true;
+            isWalkR = true;
             movePlayer(speed, 0);
         } else if (keyCode == KeyEvent.VK_SPACE && !isJump) {
             isJump = true;
+            originY = y;
             jumpTimer.start();
         } else if (keyCode == KeyEvent.VK_Z && !isAttack) {
             isAttack = true;
             movePlayer(0, 0);
-        } else if (keyCode == KeyEvent.VK_UP && !isClimb) {
+        } else if (keyCode == KeyEvent.VK_UP) {
             isClimb = true;
             movePlayer(0, -speed);
-        } else if (keyCode == KeyEvent.VK_DOWN && !isClimb) {
+        } else if (keyCode == KeyEvent.VK_DOWN) {
             isClimb = true;
-            movePlayer(0, +speed);
+            movePlayer(0, speed);
         }
     }
 
@@ -108,7 +127,7 @@ public class Player {
         x += deltaX;
         y += deltaY;
 
-        if (isWalk) {
+        if (isWalkL || isWalkR) {
             walkingCharacter.setBounds(x, y, 80, 80);
             playerPanel.remove(idleCharacter);
             playerPanel.add(walkingCharacter);
@@ -136,13 +155,20 @@ public class Player {
 
     private void updateJumpMotion() {
         y -= speed;
-
-        if (y <= (288 - jumpHeight)) {
+        
+        if (isWalkR) {
+            x += speed;
+        }
+        else if (isWalkL) {
+            x -= speed;
+        }
+    
+        if (y <= (originY - jumpHeight)) {
             jumpTimer.stop();
             isJump = false;
             jumpBackDown();
         }
-
+    
         movePlayer(0, 0);
     }
 
@@ -153,7 +179,8 @@ public class Player {
                 y += speed;
                 movePlayer(0, 0);
 
-                if (y >= 288) {
+                if (y >= originY) {
+                    y = originY;
                     ((Timer) e.getSource()).stop();
                     isJump = false;
                 }
