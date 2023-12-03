@@ -72,12 +72,13 @@ public class EngineMain {
         imagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 600));
         imagePanel.add(new JLabel(" "));
 
-        imagePanel.add(animationButton);
-        imagePanel.add(imageSlicerButton);
         imagePanel.add(mapEditorButton);
         imagePanel.add(objectEditorButton);
+        imagePanel.add(animationButton);
+        imagePanel.add(imageSlicerButton);
+        
 
-        imagePanel.setCenterText("JAVA GRAPHIC STUDIO");
+        imagePanel.setCenterText("JAVA GRAPHICS STUDIO");
 
         frame.pack();
         frame.setLocationRelativeTo(null);
