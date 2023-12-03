@@ -23,7 +23,6 @@ public class EngineMain {
         JFrame frame = new JFrame("Engine Main");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // 각 버튼을 생성하고 ActionListener를 추가
         JButton animationButton = new JButton("Animation WorkFlow");
         JButton imageSlicerButton = new JButton("Image Slicer");
         JButton mapEditorButton = new JButton("Map Editor");
@@ -61,23 +60,16 @@ public class EngineMain {
             }
         });
 
-        
+        frame.setContentPane(new JPanel(new BorderLayout()));
 
-        // 프레임에 버튼들을 추가
-        frame.setContentPane(new JPanel(new BorderLayout())); // Use a BorderLayout
-
-        // 이미지 파일 경로
         String imagePath = "image\\EngineImage\\KakaoTalk_20231203_204756671.png";
 
-        // ImagePanel을 생성하여 배경 이미지로 설정
         ImagePanel imagePanel = new ImagePanel(imagePath);
         imagePanel.setBorder(new EmptyBorder(20, 0, 0, 0)); // Add space at the top
 
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
 
-        // ImagePanel에 FlowLayout을 설정하고 버튼들을 추가
         imagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 600));
-        // Add an empty label for spacing
         imagePanel.add(new JLabel(" "));
 
         imagePanel.add(animationButton);
@@ -87,9 +79,8 @@ public class EngineMain {
 
         imagePanel.setCenterText("JAVA GRAPHIC STUDIO");
 
-        // 프레임 설정
-        frame.pack(); // 프레임 크기를 이미지 크기에 맞게 조절
-        frame.setLocationRelativeTo(null); // 화면 중앙에 표시
+        frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
@@ -104,13 +95,12 @@ class ImagePanel extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Initialize centerText to an empty string
         centerText = "";
     }
 
     public void setCenterText(String text) {
         centerText = text;
-        repaint(); // Request a repaint to update the displayed text
+        repaint();
     }
 
     @Override
@@ -118,7 +108,7 @@ class ImagePanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
 
-        Font font = new Font("Arial", Font.BOLD, 50); // 사용하고자 하는 글씨체로 변경하세요
+        Font font = new Font("Arial", Font.BOLD, 50);
         g.setFont(font);
         g.drawString(centerText, (getWidth() - g.getFontMetrics().stringWidth(centerText)) / 2, getHeight() / 2);
     }
