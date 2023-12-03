@@ -14,6 +14,7 @@ public class CombinedPanel extends JPanel {
     public CombinedPanel() {
         mapPanel = new MapPanel();
         objectPanel = new ObjectPanel();
+        setPreferredSize(new java.awt.Dimension(688, 400));
     }
 
     @Override
