@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 public class SimpleObjectEditor {
     private static final int TILE_SIZE = 32;
     private static final int PALETTE_SIZE = 50;
-    private static final int TOTAL_PAGES = 2;
+    private static final int TOTAL_PAGES = 3;
     private static final String[] FILE_PATHS = {
             "image/forest-2d-tileset/objects",
             "image/cave-2d-tileset/objects",
@@ -41,13 +41,17 @@ public class SimpleObjectEditor {
                 File directory = new File(FILE_PATHS[fileIndex]);
                 File[] imageFiles = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".png"));
 
-                if (imageFiles != null) {
-                    for (int i = 0; i < Math.min(PALETTE_SIZE, imageFiles.length); i++) {
+                int numTiles = Math.min(PALETTE_SIZE, imageFiles.length);
+                for (int i = 0; i < PALETTE_SIZE; i++) {
+                    if (i < numTiles) {
                         try {
                             palette[fileIndex][page][i] = ImageIO.read(imageFiles[i]);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    } else {
+                        // 이미지 파일이 부족한 경우, 빈 BufferedImage 또는 기본 이미지를 설정
+                        palette[fileIndex][page][i] = new BufferedImage(TILE_SIZE, TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
                     }
                 }
             }
