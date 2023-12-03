@@ -16,10 +16,10 @@ public class Jump extends JPanel {
     private int currentFrame = 0;
     private Timer timer;
 
-    public Jump() {
+    public Jump(String jumpPath) {
         jumpFrames = new ImageIcon[8];
         for (int i = 0; i < 8; i++) {
-            jumpFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Jump_8/Pink_Monster_Jump_" + i + ".png");
+            jumpFrames[i] = new ImageIcon(jumpPath + i + ".png");
         }
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 
