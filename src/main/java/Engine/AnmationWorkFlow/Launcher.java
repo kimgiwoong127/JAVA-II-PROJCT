@@ -8,7 +8,7 @@ public class Launcher {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Character character = new Character();
         frame.add(character);
-        frame.setSize(200, 200);
+        frame.setSize(200, 100);
         frame.setVisible(true);
     }
 }

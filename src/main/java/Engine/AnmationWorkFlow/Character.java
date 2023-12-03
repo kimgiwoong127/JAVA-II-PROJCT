@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Character extends JPanel {
     private static final int CHARACTER_WIDTH = 80;
     private static final int CHARACTER_HEIGHT = 80;
+    private JLabel actionLabel;
     private int x = 0;
     private int y = 0;
     private boolean isWalking = false;
@@ -31,6 +33,10 @@ public class Character extends JPanel {
         climb = new Climb();
         attack = new Attack();
         jump = new Jump();
+
+        actionLabel = new JLabel("Idle");
+        add(actionLabel);
+
         idle.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
         walk.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
         attack.setBounds(x, y, CHARACTER_WIDTH, CHARACTER_HEIGHT);
@@ -64,6 +70,7 @@ public class Character extends JPanel {
                         isWalking = true;
                         remove(idle);
                         add(walk);
+                        setActionLabelText("Walking");
                         revalidate();
                         repaint();
                     }
@@ -73,6 +80,7 @@ public class Character extends JPanel {
                         isClimbing = true;
                         remove(idle);
                         add(climb);
+                        setActionLabelText("Climbing");
                         revalidate();
                         repaint();
                     }
@@ -84,6 +92,7 @@ public class Character extends JPanel {
                         remove(walk);
                         remove(idle);
                         add(attack);
+                        setActionLabelText("Attacking");
                         revalidate();
                         repaint();
                         startAttackTimer();
@@ -93,6 +102,7 @@ public class Character extends JPanel {
                         isJumping = true;
                         remove(idle);
                         add(jump);
+                        setActionLabelText("Jumping");
                         revalidate();
                         repaint();
                     }
@@ -109,8 +119,10 @@ public class Character extends JPanel {
                         remove(walk);
                         remove(attack);
                         add(idle);
+                        setActionLabelText("Idle");
                         revalidate();
                         repaint();
+                        
                     }
                 }else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN) {
                     isClimbing = false;
@@ -130,6 +142,10 @@ public class Character extends JPanel {
 
         setFocusable(true);
         requestFocus();
+    }
+
+    private void setActionLabelText(String actionText) {
+        actionLabel.setText(actionText);
     }
 
     private void startAttackTimer() {
