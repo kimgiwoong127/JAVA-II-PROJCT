@@ -11,7 +11,7 @@ public class Play extends JFrame {
         CombinedPanel combinedPanel = new CombinedPanel();
         combinedPanel.setSize(1366, 760);
 
-        setTitle("이어하기");
+        setTitle("forest1");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setContentPane(combinedPanel);
 
