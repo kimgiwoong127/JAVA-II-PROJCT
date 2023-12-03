@@ -18,16 +18,14 @@ import javax.swing.JTextField;
 public class ImageSlicer {
 
     public static void main(String[] args) {
-        // 프레임 생성
         JFrame frame = new JFrame("이미지 슬라이서");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // 텍스트 상자와 버튼이 있는 패널 생성
         JPanel panel = new JPanel();
         JTextField inputField = new JTextField(20);
         JTextField outputFileNameField = new JTextField(20);
-        JTextField numFramesField = new JTextField(5); // 수정된 부분: 프레임 수 입력 텍스트 박스 추가
+        JTextField numFramesField = new JTextField(5);
         JButton sliceButton = new JButton("이미지 슬라이스");
 
         JLabel imageLabel = new JLabel();
@@ -35,8 +33,8 @@ public class ImageSlicer {
         panel.add(inputField);
         panel.add(new JLabel("출력 파일명 입력: "));
         panel.add(outputFileNameField);
-        panel.add(new JLabel("프레임 수 입력: ")); // 수정된 부분: 프레임 수 레이블 추가
-        panel.add(numFramesField); // 수정된 부분: 프레임 수 입력 텍스트 박스 추가
+        panel.add(new JLabel("프레임 수 입력: "));
+        panel.add(numFramesField);
         panel.add(sliceButton);
         panel.add(imageLabel);
 
@@ -46,21 +44,18 @@ public class ImageSlicer {
                 String inputFilePath = inputField.getText();
                 String outputFileName = outputFileNameField.getText();
                 String outputDirectory = JOptionPane.showInputDialog(null, "저장할 디렉토리 경로를 입력하세요:");
-                int numFrames = Integer.parseInt(numFramesField.getText()); // 수정된 부분: 프레임 수를 정수로 변환하여 가져옴
+                int numFrames = Integer.parseInt(numFramesField.getText());
                 BufferedImage slicedImage = sliceImage(inputFilePath, outputDirectory, outputFileName, numFrames);
 
-                // 슬라이스한 이미지를 레이블에 표시
                 if (slicedImage != null) {
                     imageLabel.setIcon(new ImageIcon(slicedImage));
-                    frame.pack();  // 이미지에 맞게 프레임 크기 조절
+                    frame.pack();
                 }
             }
         });
 
-        // 패널을 프레임에 추가
         frame.add(panel);
 
-        // 프레임 표시
         frame.setVisible(true);
     }
 
