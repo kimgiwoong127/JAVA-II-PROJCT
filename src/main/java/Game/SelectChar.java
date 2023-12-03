@@ -1,11 +1,23 @@
 package Game;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 public class SelectChar extends JFrame {
     private JLabel backgroundLabel;
@@ -106,13 +118,13 @@ public class SelectChar extends JFrame {
 
     private void openAnotherPage(String characterName) {
         JFrame anotherPage = new JFrame("Another Page");
-        anotherPage.setSize(400, 200);
         JLabel label = new JLabel("선택된 캐릭터: " + characterName);
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        anotherPage.add(label);
-        anotherPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        anotherPage.setLocationRelativeTo(null);
-        anotherPage.setVisible(true);
+
+        JOptionPane.showMessageDialog(this, "게임을 시작합니다!");
+        Play play = new Play();
+        play.setVisible(true);
+        dispose();
     }
 
     public static void main(String[] args) {

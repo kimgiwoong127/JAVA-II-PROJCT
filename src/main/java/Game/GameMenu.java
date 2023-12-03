@@ -143,7 +143,7 @@ public class GameMenu extends JFrame implements ActionListener {
 
         startButton = new JButton();
         startButton.addActionListener(this);
-        startButton.setText("이어하기");
+        startButton.setText("게임 시작");
         Dimension buttonSize = new Dimension(150, 50);
 
         startButton.setPreferredSize(buttonSize);
@@ -170,8 +170,8 @@ public class GameMenu extends JFrame implements ActionListener {
 
     private void playGame() {
         JOptionPane.showMessageDialog(this, "게임을 시작합니다!");
-        Play play = new Play();
-        play.setVisible(true);
+        SelectChar SC = new SelectChar();
+        SC.setVisible(true);
         dispose();
     }
 
