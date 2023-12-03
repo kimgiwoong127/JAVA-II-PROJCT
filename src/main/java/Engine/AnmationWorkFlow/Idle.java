@@ -1,7 +1,9 @@
 package Engine.AnmationWorkFlow;
 
+import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +23,7 @@ public class Idle extends JPanel {
         for (int i = 0; i < 4; i++) {
             idleFrames[i] = new ImageIcon(idlePath + i + ".png");
         }
+        setOpaque(false);
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 
         timer = new Timer(100, new ActionListener() {
@@ -36,6 +39,18 @@ public class Idle extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        idleFrames[currentFrame].paintIcon(this, g, 0, 0);
+
+        // 그래픽스 객체를 Graphics2D로 캐스팅합니다.
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        // 알파 채널을 사용하여 투명성을 설정합니다.
+        float alpha = 1.0f; // 투명성을 조절하려면 0.0f부터 1.0f까지의 값을 사용합니다.
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
+        // 현재 프레임을 그립니다.
+        idleFrames[currentFrame].paintIcon(this, g2d, 0, 0);
+
+        // 그래픽스 객체를 해제합니다.
+        g2d.dispose();
     }
 }

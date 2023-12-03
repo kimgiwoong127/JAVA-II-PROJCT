@@ -3,30 +3,28 @@ package Game;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import Engine.AnmationWorkFlow.Idle;
 import Engine.MapEditor.CombinedPanel;
 
 public class Play extends JFrame {
     public Play() {
         CombinedPanel combinedPanel = new CombinedPanel();
-        combinedPanel.setSize(1366, 760);
+        combinedPanel.setSize(688, 400);
 
-        // Set the layout manager of combinedPanel to null to manually position components
+        // 레이아웃 관리자를 사용하지 않고 수동으로 컴포넌트를 배치하려는 것은 좋지 않습니다.
         combinedPanel.setLayout(null);
 
-        // Create an instance of Idle with the path to your idle animation frames
-        Idle idleCharacter = new Idle("image\\Player\\1 Pink_Monster\\Pink_Monster_Idle\\Pink_Monster_idle_");
+        // Create an instance of Player class
+        Player player = new Player();
 
-        // Set the bounds of the idleCharacter within combinedPanel
-        idleCharacter.setBounds(100, 100, 80, 80);
-
-        // Add the idleCharacter to combinedPanel
-        combinedPanel.add(idleCharacter);
+        // Add the player panel to combinedPanel
+        combinedPanel.add(player.getPlayerPanel());
 
         setTitle("forest1");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setContentPane(combinedPanel);
 
+        // 크기를 화면에 맞게 설정
+        pack();
         setSize(688, 400);
         setLocationRelativeTo(null);
         setVisible(true);
