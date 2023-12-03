@@ -16,10 +16,10 @@ public class Walk extends JPanel {
     private int currentFrame = 0;
     private Timer timer;
 
-    public Walk() {
+    public Walk(String walkPath) {
         walkFrames = new ImageIcon[6];
         for (int i = 0; i < 6; i++) {
-            walkFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Walk_6/Pink_Monster_Walk_" + i + ".png");
+            walkFrames[i] = new ImageIcon(walkPath + i + ".png");
         }
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 

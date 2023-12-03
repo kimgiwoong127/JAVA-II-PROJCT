@@ -16,10 +16,10 @@ public class Attack extends JPanel {
     private int currentFrame = 0;
     private Timer timer;
 
-    public Attack() {
+    public Attack(String attackPath) {
         attackFrames = new ImageIcon[6];
         for (int i = 0; i < 6; i++) {
-            attackFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Attack2_6/Pink_Monster_Attack2_" + i + ".png");
+            attackFrames[i] = new ImageIcon(attackPath + i + ".png");
         }
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 

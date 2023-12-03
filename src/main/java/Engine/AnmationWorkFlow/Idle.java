@@ -16,10 +16,10 @@ public class Idle extends JPanel {
     private int currentFrame = 0;
     private Timer timer;
 
-    public Idle() {
+    public Idle(String idlePath) {
         idleFrames = new ImageIcon[4];
         for (int i = 0; i < 4; i++) {
-            idleFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Idle/Pink_Monster_Idle_" + i + ".png");
+            idleFrames[i] = new ImageIcon(idlePath + i + ".png");
         }
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 

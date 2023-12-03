@@ -26,13 +26,18 @@ public class Character extends JPanel {
     private Climb climb;
     private Jump jump;
     private Timer attackTimer;
+    private String walkPath;
+    private String idlePath;
+    private String climbPath;
+    private String attackPath;
+    private String jumpPath;
 
-    public Character() {
-        walk = new Walk();
-        idle = new Idle();
-        climb = new Climb();
-        attack = new Attack();
-        jump = new Jump();
+    public Character(String walkPath, String idlePath, String climbPath, String attackPath, String jumpPath) {
+        this.walk = new Walk(walkPath);
+        this.idle = new Idle(idlePath);
+        this.climb = new Climb(climbPath);
+        this.attack = new Attack(attackPath);
+        this.jump = new Jump(jumpPath);
 
         actionLabel = new JLabel("Idle");
         add(actionLabel);
@@ -128,12 +133,22 @@ public class Character extends JPanel {
                     isClimbing = false;
                     remove(climb);
                     add(idle);
+                    setActionLabelText("Idle");
                     revalidate();
                     repaint();
                 }else if (keyCode == KeyEvent.VK_SPACE) {
                     isJumping = false;
                     remove(jump);
                     add(idle);
+                    setActionLabelText("Idle");
+                    revalidate();
+                    repaint();
+                }
+                else if (keyCode == KeyEvent.VK_Z) {
+                    isJumping = false;
+                    remove(attack);
+                    add(idle);
+                    setActionLabelText("Idle");
                     revalidate();
                     repaint();
                 }

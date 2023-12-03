@@ -16,10 +16,10 @@ public class Climb extends JPanel {
     private int currentFrame = 0;
     private Timer timer;
 
-    public Climb() {
+    public Climb(String climbPath) {
         climbFrames = new ImageIcon[4];
         for (int i = 0; i < 4; i++) {
-            climbFrames[i] = new ImageIcon("image/Player/1 Pink_Monster/Pink_Monster_Climb_4/Pink_Monster_Climb_" + i + ".png");
+            climbFrames[i] = new ImageIcon(climbPath + i + ".png");
         }
         setPreferredSize(new Dimension(CHARACTER_WIDTH, CHARACTER_HEIGHT));
 
