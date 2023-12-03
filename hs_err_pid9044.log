@@ -1,0 +1,231 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 130023424 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3613), pid=9044, tid=20852
+#
+# JRE version:  (17.0.9+9) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.9+9, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:+ShowCodeDetailsInExceptionMessages Game.Play
+
+Host: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 cores, 7G,  Windows 11 , 64 bit Build 22621 (10.0.22621.2506)
+Time: Mon Dec  4 04:14:49 2023  Windows 11 , 64 bit Build 22621 (10.0.22621.2506) elapsed time: 0.028172 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000017b78c3bfa0):  JavaThread "Unknown thread" [_thread_in_vm, id=20852, stack(0x0000006d53000000,0x0000006d53100000)]
+
+Stack: [0x0000006d53000000,0x0000006d53100000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x67cf49]
+V  [jvm.dll+0x83478a]
+V  [jvm.dll+0x83624e]
+V  [jvm.dll+0x8368b3]
+V  [jvm.dll+0x247f1f]
+V  [jvm.dll+0x679d69]
+V  [jvm.dll+0x66e6ba]
+V  [jvm.dll+0x307e5b]
+V  [jvm.dll+0x30f306]
+V  [jvm.dll+0x35f0ce]
+V  [jvm.dll+0x35f2ff]
+V  [jvm.dll+0x2dea58]
+V  [jvm.dll+0x2df9c4]
+V  [jvm.dll+0x806031]
+V  [jvm.dll+0x36cf31]
+V  [jvm.dll+0x7e4aac]
+V  [jvm.dll+0x3f07af]
+V  [jvm.dll+0x3f23e1]
+C  [jli.dll+0x528f]
+C  [ucrtbase.dll+0x29363]
+C  [KERNEL32.DLL+0x1257d]
+C  [ntdll.dll+0x5aa58]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff909a7ee98, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000017b78c9db60 GCTaskThread "GC Thread#0" [stack: 0x0000006d53100000,0x0000006d53200000] [id=11124]
+  0x0000017b78cadfc0 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000006d53200000,0x0000006d53300000] [id=21728]
+  0x0000017b78cb0fa0 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000006d53300000,0x0000006d53400000] [id=13060]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff90923f497]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000017b76a6a9b0] Heap_lock - owner thread: 0x0000017b78c3bfa0
+
+Heap address: 0x0000000085000000, size: 1968 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000085000000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff909626c79]
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.014 Loaded shared library c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7b2810000 - 0x00007ff7b281e000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\java.exe
+0x00007ff9854f0000 - 0x00007ff985707000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff9844b0000 - 0x00007ff984574000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff982e90000 - 0x00007ff983235000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff982d70000 - 0x00007ff982e81000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff931d90000 - 0x00007ff931dab000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\VCRUNTIME140.dll
+0x00007ff9614d0000 - 0x00007ff9614e7000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\jli.dll
+0x00007ff984aa0000 - 0x00007ff984c4e000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff9828d0000 - 0x00007ff9828f6000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff967600000 - 0x00007ff967893000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.2506_none_270c5ae97388e100\COMCTL32.dll
+0x00007ff985270000 - 0x00007ff985299000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff982a70000 - 0x00007ff982b89000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff985380000 - 0x00007ff985427000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff982b90000 - 0x00007ff982c2a000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff983e50000 - 0x00007ff983e81000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ff975460000 - 0x00007ff97546c000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\vcruntime140_1.dll
+0x00007ff914570000 - 0x00007ff9145fd000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\msvcp140.dll
+0x00007ff908f50000 - 0x00007ff909bb1000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\server\jvm.dll
+0x00007ff984ef0000 - 0x00007ff984fa1000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff983eb0000 - 0x00007ff983f56000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff984cb0000 - 0x00007ff984dc7000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff963ec0000 - 0x00007ff963ec9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ff97b220000 - 0x00007ff97b254000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff9816b0000 - 0x00007ff9816fd000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ff984a20000 - 0x00007ff984a91000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff97b1f0000 - 0x00007ff97b1fa000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff981690000 - 0x00007ff9816a3000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ff9818f0000 - 0x00007ff981908000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ff963950000 - 0x00007ff96395a000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\jimage.dll
+0x00007ff9801b0000 - 0x00007ff9803e3000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ff984110000 - 0x00007ff984499000 	C:\WINDOWS\System32\combase.dll
+0x00007ff9852a0000 - 0x00007ff985377000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ff976ae0000 - 0x00007ff976b12000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ff982cf0000 - 0x00007ff982d6a000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff9166f0000 - 0x00007ff916715000 	c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.2506_none_270c5ae97388e100;c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\server
+
+VM Arguments:
+jvm_args: -XX:+ShowCodeDetailsInExceptionMessages 
+java_command: Game.Play
+java_class_path (initial): C:\Users\kimgi\Desktop\나의 공간\JAVA-II-PROJCT\build\resources\main;C:\Users\kimgi\Desktop\나의 공간\JAVA-II-PROJCT\build\classes\java\main;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\org.aspectj\aspectjweaver\1.9.20\da562407e43f74c0f8f5f5df4065d85ec1736d01\aspectjweaver-1.9.20.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.14.9\b69e7fff6c473d3ed2b489cdfd673a091fd94226\byte-buddy-1.14.9.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\jakarta.xml.bind\jakarta.xml.bind-api\4.0.1\ca2330866cbc624c7e5ce982e121db1125d23e15\jakarta.xml.bind-api-4.0.1.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\org.eclipse.angus\angus-activation\2.0.1\eaafaf4eb71b400e4136fc3a286f50e34a68ecb7\angus-activation-2.0.1.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.20.0\1fe6082e660daf07c689a89c94dc0f49c26b44bb\log4j-api-2.20.0.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\com.zaxxer\HikariCP\5.0.1\a74c7f0a37046846e88d54f7cb6ea6d565c65f9c\HikariCP-5.0.1.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\jakarta.persistence\jakarta.persistence-api\3.1.0\66901fa1c373c6aff65c13791cc11da72060a8d6\jakarta.persistence-api-3.1.0.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\com.mysql\mysql-connector-j\8.0.33\9e64d997873abc4318620264703d3fdb6b02dd5a\mysql-connector-j-8.0.33.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\com.google.guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\b421526c5f297295adef1c886e5246c39d4ac629\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\kimgi\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-websocket\10.1.15\14cc0999d4a5128dc9bb8862487aa8ed4cd7fcd8\tomcat-embed-websocket-10.1.15.jar;C:\Users\kimgi\.gradle\cache
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2063597568                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool ShowCodeDetailsInExceptionMessages       = true                                   {manageable} {command line}
+   size_t SoftMaxHeapSize                          = 2063597568                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17
+PATH=c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin;c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\maven\latest\bin;c:\Users\kimgi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\gradle\latest\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\gradle\gradle-8.4\bin;C:\Gradle\gradle-8.4\bin;C:\Users\kimgi\AppData\Local\Microsoft\WindowsApps;C:\Users\kimgi\.dotnet\tools;C:\Users\kimgi\AppData\Local\GitHubDesktop\bin;C:\Users\kimgi\AppData\Local\Programs\Microsoft VS Code\bin;
+USERNAME=kimgiwoong
+LANG=en_US.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+TMP=C:\Users\kimgi\AppData\Local\Temp
+TEMP=C:\Users\kimgi\AppData\Local\Temp
+
+
+
+Periodic native trim disabled
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 22621 (10.0.22621.2506)
+OS uptime: 15 days 6:24 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0x9a, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi, hv
+Processor Information for all 8 processors :
+  Max Mhz: 2401, Current Mhz: 2401, Mhz Limit: 2401
+
+Memory: 4k page, system-wide physical 7868M (596M free)
+TotalPageFile size 25103M (AvailPageFile size 126M)
+current process WorkingSet (physical memory assigned to process): 12M, peak: 12M
+current process commit charge ("private bytes"): 60M, peak: 184M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.9+9) for windows-amd64 JRE (17.0.9+9), built on Oct 26 2023 14:01:42 by "admin" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.
