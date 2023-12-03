@@ -1,4 +1,4 @@
-package Register;
+package Game.Register;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

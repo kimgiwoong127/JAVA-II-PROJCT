@@ -65,14 +65,13 @@ public class ImageSlicer {
     }
 
     private static BufferedImage sliceImage(String inputFilePath, String outputDirectory, String outputFileName, int numFrames) {
-        int pixelSize = 32; // 각 부분 이미지의 크기
+        int pixelSize = 32;
 
         try {
             BufferedImage originalImage = ImageIO.read(new File(inputFilePath));
 
             int frameWidth = originalImage.getWidth() / numFrames;
 
-            // 슬라이스한 이미지를 저장할 BufferedImage
             BufferedImage slicedImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
             for (int k = 0; k < numFrames; k++) {

@@ -67,7 +67,7 @@ public class EngineMain {
         frame.setContentPane(new JPanel(new BorderLayout())); // Use a BorderLayout
 
         // 이미지 파일 경로
-        String imagePath = "image\\EngineImage\\KakaoTalk_20231203_204756671.png";
+        String imagePath = "image/EngineImage/KakaoTalk_20231203_204756671.png";
 
         // ImagePanel을 생성하여 배경 이미지로 설정
         ImagePanel imagePanel = new ImagePanel(imagePath);

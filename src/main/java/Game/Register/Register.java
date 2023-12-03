@@ -1,4 +1,4 @@
-package Register;
+package Game.Register;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,8 +10,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import Game.GameMenu;
 
 public class Register extends JFrame {
     private JTextField idField;

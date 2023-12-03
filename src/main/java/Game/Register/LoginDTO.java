@@ -1,5 +1,5 @@
 // LoginDTO.java
-package Register;
+package Game.Register;
 
 public class LoginDTO {
     private String id;
