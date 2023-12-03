@@ -1,7 +1,5 @@
 package Engine.ImageSlicer;
 
- // image/Player/1 Pink_Monster/Pink_Monster_Jump_8.png
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,17 +20,23 @@ public class ImageSlicer {
     public static void main(String[] args) {
         // 프레임 생성
         JFrame frame = new JFrame("이미지 슬라이서");
-        frame.setSize(400, 300);
+        frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // 텍스트 상자와 버튼이 있는 패널 생성
         JPanel panel = new JPanel();
         JTextField inputField = new JTextField(20);
+        JTextField outputFileNameField = new JTextField(20);
+        JTextField numFramesField = new JTextField(5); // 수정된 부분: 프레임 수 입력 텍스트 박스 추가
         JButton sliceButton = new JButton("이미지 슬라이스");
 
         JLabel imageLabel = new JLabel();
         panel.add(new JLabel("이미지 경로 입력: "));
         panel.add(inputField);
+        panel.add(new JLabel("출력 파일명 입력: "));
+        panel.add(outputFileNameField);
+        panel.add(new JLabel("프레임 수 입력: ")); // 수정된 부분: 프레임 수 레이블 추가
+        panel.add(numFramesField); // 수정된 부분: 프레임 수 입력 텍스트 박스 추가
         panel.add(sliceButton);
         panel.add(imageLabel);
 
@@ -40,7 +44,10 @@ public class ImageSlicer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputFilePath = inputField.getText();
-                BufferedImage slicedImage = sliceImage(inputFilePath);
+                String outputFileName = outputFileNameField.getText();
+                String outputDirectory = JOptionPane.showInputDialog(null, "저장할 디렉토리 경로를 입력하세요:");
+                int numFrames = Integer.parseInt(numFramesField.getText()); // 수정된 부분: 프레임 수를 정수로 변환하여 가져옴
+                BufferedImage slicedImage = sliceImage(inputFilePath, outputDirectory, outputFileName, numFrames);
 
                 // 슬라이스한 이미지를 레이블에 표시
                 if (slicedImage != null) {
@@ -57,13 +64,12 @@ public class ImageSlicer {
         frame.setVisible(true);
     }
 
-    private static BufferedImage sliceImage(String inputFilePath) {
+    private static BufferedImage sliceImage(String inputFilePath, String outputDirectory, String outputFileName, int numFrames) {
         int pixelSize = 32; // 각 부분 이미지의 크기
 
         try {
             BufferedImage originalImage = ImageIO.read(new File(inputFilePath));
 
-            int numFrames = 8; // 총 프레임 수
             int frameWidth = originalImage.getWidth() / numFrames;
 
             // 슬라이스한 이미지를 저장할 BufferedImage
@@ -76,8 +82,10 @@ public class ImageSlicer {
                         int y = i * pixelSize;
 
                         BufferedImage subImage = originalImage.getSubimage(x, y, pixelSize, pixelSize);
+                        String outputFilePath = outputDirectory + File.separator + outputFileName + "_" + k + ".png";
 
-                        // 슬라이스한 이미지를 적절한 위치에 그림
+                        ImageIO.write(subImage, "png", new File(outputFilePath));
+
                         slicedImage.getGraphics().drawImage(subImage, x, y, null);
                     }
                 }
