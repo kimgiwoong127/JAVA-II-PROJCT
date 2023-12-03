@@ -62,12 +62,8 @@ public class EngineMain {
 
         frame.setContentPane(new JPanel(new BorderLayout()));
 
-<<<<<<< HEAD
         // 이미지 파일 경로
         String imagePath = "image/EngineImage/KakaoTalk_20231203_204756671.png";
-=======
-        String imagePath = "image\\EngineImage\\KakaoTalk_20231203_204756671.png";
->>>>>>> refs/remotes/origin/master
 
         ImagePanel imagePanel = new ImagePanel(imagePath);
         imagePanel.setBorder(new EmptyBorder(20, 0, 0, 0)); // Add space at the top
