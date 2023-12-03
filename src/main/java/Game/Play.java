@@ -11,13 +11,11 @@ public class Play extends JFrame {
         CombinedPanel combinedPanel = new CombinedPanel();
         combinedPanel.setSize(1366, 760);
 
-        JButton sampleButton = new JButton("클릭하세요");
-        combinedPanel.add(sampleButton);
-
         setTitle("이어하기");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setContentPane(combinedPanel);
 
+        setSize(688, 400);
         setLocationRelativeTo(null);
         setVisible(true);
     }
