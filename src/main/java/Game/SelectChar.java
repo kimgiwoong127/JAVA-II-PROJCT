@@ -2,19 +2,22 @@ package Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SelectChar extends JFrame {
     private JLabel backgroundLabel;
     private JPanel characterPanel;
+    private JLabel selectedCharacterLabel;
+    private JButton selectButton;
 
     public SelectChar() {
         setTitle("캐릭터 선택");
         setSize(1366, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // 백그라운드 이미지 추가 및 크기 조절
         ImageIcon backgroundImageIcon = new ImageIcon("image/forest-2d-tileset/Background/Background.png");
         Image backgroundImage = backgroundImageIcon.getImage().getScaledInstance(1366, 768, Image.SCALE_SMOOTH);
         backgroundLabel = new JLabel(new ImageIcon(backgroundImage));
@@ -22,20 +25,33 @@ public class SelectChar extends JFrame {
         add(backgroundLabel, BorderLayout.CENTER);
 
         characterPanel = new JPanel();
-        characterPanel.setOpaque(false);  // 투명한 패널로 설정
+        characterPanel.setOpaque(false);
         characterPanel.setLayout(new GridLayout(1, 3));
 
-        // 캐릭터 이미지 파일 경로에 따라 수정
         String[] characterImages = {"image/chara_profile/pinkprofile.png", "image/chara_profile/owletprofile.png", "image/chara_profile/dudeprofile.png"};
+        String[] characterNames = {"pink", "owlet", "dude"};
 
-        for (String imagePath : characterImages) {
-            JLabel label = new JLabel(new ImageIcon(imagePath));
+        for (int i = 0; i < characterImages.length; i++) {
+            JLabel label = new JLabel(new ImageIcon(characterImages[i]));
+            label.setToolTipText(characterNames[i]);
             label.addMouseListener(new CharacterClickListener());
             characterPanel.add(label);
         }
 
-        // characterPanel을 backgroundLabel 중앙에 추가
         backgroundLabel.add(characterPanel, BorderLayout.CENTER);
+
+        ImageIcon selectButtonIcon = new ImageIcon("image/chara_profile/캐릭터선택.png");
+        int scaledWidth = 150;
+        int scaledHeight = 80;
+        Image scaledImage = selectButtonIcon.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+        selectButtonIcon = new ImageIcon(scaledImage);
+        selectButton = new JButton(selectButtonIcon);
+        selectButton.setBorderPainted(false);
+        selectButton.setContentAreaFilled(false);
+        selectButton.setFocusPainted(false);
+        selectButton.addActionListener(new SelectButtonListener());
+
+        backgroundLabel.add(selectButton, BorderLayout.SOUTH);
 
         setVisible(true);
     }
@@ -43,14 +59,18 @@ public class SelectChar extends JFrame {
     private class CharacterClickListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            JLabel selectedLabel = (JLabel) e.getSource();
-            System.out.println("Selected Character: " + selectedLabel.getIcon());
+            JLabel clickedLabel = (JLabel) e.getSource();
+            if (selectedCharacterLabel != null) {
+                selectedCharacterLabel.setBorder(null);
+            }
+            selectedCharacterLabel = clickedLabel;
+            selectedCharacterLabel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            System.out.println("Selected Character: " + selectedCharacterLabel.getToolTipText());
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
             JLabel enteredLabel = (JLabel) e.getSource();
-            // 마우스가 올라가면 이미지를 확대
             ImageIcon icon = (ImageIcon) enteredLabel.getIcon();
             Image image = icon.getImage().getScaledInstance(icon.getIconWidth() + 20, icon.getIconHeight() + 20, Image.SCALE_SMOOTH);
             enteredLabel.setIcon(new ImageIcon(image));
@@ -59,11 +79,40 @@ public class SelectChar extends JFrame {
         @Override
         public void mouseExited(MouseEvent e) {
             JLabel exitedLabel = (JLabel) e.getSource();
-            // 마우스가 나가면 다시 원래 크기로
-            ImageIcon icon = (ImageIcon) exitedLabel.getIcon();
-            Image image = icon.getImage().getScaledInstance(icon.getIconWidth() - 20, icon.getIconHeight() - 20, Image.SCALE_SMOOTH);
-            exitedLabel.setIcon(new ImageIcon(image));
+            if (exitedLabel != selectedCharacterLabel) {
+                ImageIcon icon = (ImageIcon) exitedLabel.getIcon();
+                Image image = icon.getImage().getScaledInstance(icon.getIconWidth() - 20, icon.getIconHeight() - 20, Image.SCALE_SMOOTH);
+                exitedLabel.setIcon(new ImageIcon(image));
+            }
         }
+    }
+
+    private class SelectButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (selectedCharacterLabel != null) {
+                String characterName = selectedCharacterLabel.getToolTipText();
+                int result = JOptionPane.showConfirmDialog(SelectChar.this,
+                        "선택된 캐릭터: " + characterName + "\n선택하시겠습니까?",
+                        "캐릭터 선택 확인", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    openAnotherPage(characterName);
+                }
+            } else {
+                JOptionPane.showMessageDialog(SelectChar.this, "캐릭터를 선택하세요.", "경고", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+
+    private void openAnotherPage(String characterName) {
+        JFrame anotherPage = new JFrame("Another Page");
+        anotherPage.setSize(400, 200);
+        JLabel label = new JLabel("선택된 캐릭터: " + characterName);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        anotherPage.add(label);
+        anotherPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        anotherPage.setLocationRelativeTo(null);
+        anotherPage.setVisible(true);
     }
 
     public static void main(String[] args) {
