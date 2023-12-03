@@ -1,4 +1,4 @@
-package Game;
+package Game.PlayTheGame;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
