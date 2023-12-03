@@ -42,9 +42,19 @@ public class CombinedPanel extends JPanel {
 
             CombinedPanel combinedPanel = new CombinedPanel();
             frame.add(combinedPanel);
-            frame.pack();
+
+            // Set the preferred size of the CombinedPanel
+            Dimension preferredSize = combinedPanel.getPreferredSize();
+            int width = 688;
+            int height = 400;
+            preferredSize.width = Math.max(preferredSize.width, width);
+            preferredSize.height = Math.max(preferredSize.height, height);
+            combinedPanel.setPreferredSize(preferredSize);
+
+            frame.setSize(width, height);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
     }
+
 }
