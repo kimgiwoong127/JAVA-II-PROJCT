@@ -31,16 +31,41 @@ public class Player {
     private Timer jumpTimer;
     private int jumpHeight = 50;
 
-    public Player() {
-        idleCharacter = new Idle("image\\Player\\1 Pink_Monster\\Pink_Monster_Idle\\Pink_Monster_idle_");
+    public Player(String Name) {
+        if (Name == "pink") {
+            idleCharacter = new Idle("image\\Player\\1 Pink_Monster\\Pink_Monster_Idle\\Pink_Monster_idle_");
 
-        walkingCharacter = new Walk("image\\Player\\1 Pink_Monster\\Pink_Monster_Walk_6\\Pink_Monster_Walk_");
+            walkingCharacter = new Walk("image\\Player\\1 Pink_Monster\\Pink_Monster_Walk_6\\Pink_Monster_Walk_");
 
-        jumpingCharacter = new Jump("image\\Player\\1 Pink_Monster\\Pink_Monster_Jump\\Pink_Monster_jump_");
+            jumpingCharacter = new Jump("image\\Player\\1 Pink_Monster\\Pink_Monster_Jump\\Pink_Monster_jump_");
 
-        attack2Character = new Attack("image\\Player\\1 Pink_Monster\\Pink_Monster_Attack2_6\\Pink_Monster_Attack2_");
+            attack2Character = new Attack("image\\Player\\1 Pink_Monster\\Pink_Monster_Attack2_6\\Pink_Monster_Attack2_");
 
-        climbingCharacter = new Climb("image\\Player\\1 Pink_Monster\\Pink_Monster_Climb_4\\Pink_Monster_Climb_");
+            climbingCharacter = new Climb("image\\Player\\1 Pink_Monster\\Pink_Monster_Climb_4\\Pink_Monster_Climb_");
+        }
+        else if (Name == "owlet") {
+            idleCharacter = new Idle("image/Player/2 Owlet_Monster/Owlet_Monster_Idle/Owlet_Monster_Idle__");
+
+            walkingCharacter = new Walk("image/Player/2 Owlet_Monster/Owlet_Monster_Walk/Owlet_Monster_Walk__");
+
+            jumpingCharacter = new Jump("image/Player/2 Owlet_Monster/Owlet_Monster_Jump/Owlet_Monster_Jump__");
+
+            attack2Character = new Attack("image/Player/3 Dude_Monster/Dude_Monster_Attack2/Dude_Monster_Attack2__");
+
+            climbingCharacter = new Climb("image/Player/2 Owlet_Monster/Owlet_Monster_Climb/Owlet_Monster_Climb__");
+        }
+
+        else if (Name == "dude") {
+            idleCharacter = new Idle("image/Player/3 Dude_Monster/Dude_Monster_Idle/Dude_Monster_Idle__");
+
+            walkingCharacter = new Walk("image/Player/3 Dude_Monster/Dude_Monster_Walk/Dude_Monster_Walk__");
+
+            jumpingCharacter = new Jump("image/Player/3 Dude_Monster/Dude_Monster_Jump/Dude_Monster_Jump__");
+
+            attack2Character = new Attack("image/Player/3 Dude_Monster/Dude_Monster_Attack/Dude_Monster_Attack2__");
+
+            climbingCharacter = new Climb("image/Player/3 Dude_Monster/Dude_Monster_Climb/Dude_Monster_Climb__");
+        }
 
         idleCharacter.setBounds(x, y, 80, 80);
 

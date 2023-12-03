@@ -122,7 +122,7 @@ public class SelectChar extends JFrame {
         label.setHorizontalAlignment(SwingConstants.CENTER);
 
         JOptionPane.showMessageDialog(this, "게임을 시작합니다!");
-        Play play = new Play();
+        Play play = new Play(characterName);
         play.setVisible(true);
         dispose();
     }
