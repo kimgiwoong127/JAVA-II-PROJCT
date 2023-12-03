@@ -84,12 +84,10 @@ public class ObjectPanel extends JPanel {
         super.paintComponent(g);
 
         if (objectImages != null && objectData != null) {
-            // 오브젝트 이미지를 그립니다.
             for (int row = 0; row < objectData.length; row++) {
                 for (int col = 0; col < objectData[row].length; col++) {
                     int tileValue = objectData[row][col];
 
-                    // 유효한 타일 값일 때만 이미지를 그립니다.
                     if (tileValue >= 0 && tileValue < PALETTE_SIZE) {
                         int page = tileValue / PALETTE_SIZE;
                         int imageIndex = tileValue % PALETTE_SIZE;

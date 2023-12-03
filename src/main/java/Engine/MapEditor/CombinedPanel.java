@@ -20,16 +20,12 @@ public class CombinedPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draw the contents of MapPanel
         mapPanel.paintComponent(g);
-
-        // Draw the contents of ObjectPanel
         objectPanel.paintComponent(g);
     }
 
     @Override
     public Dimension getPreferredSize() {
-        // Set the preferred size based on the combined size of MapPanel and ObjectPanel
         int maxWidth = Math.max(mapPanel.getPreferredSize().width, objectPanel.getPreferredSize().width);
         int maxHeight = Math.max(mapPanel.getPreferredSize().height, objectPanel.getPreferredSize().height);
         return new Dimension(maxWidth, maxHeight);
@@ -43,7 +39,6 @@ public class CombinedPanel extends JPanel {
             CombinedPanel combinedPanel = new CombinedPanel();
             frame.add(combinedPanel);
 
-            // Set the preferred size of the CombinedPanel
             Dimension preferredSize = combinedPanel.getPreferredSize();
             int width = 688;
             int height = 400;

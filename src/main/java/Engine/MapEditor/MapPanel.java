@@ -59,7 +59,7 @@ public class MapPanel extends JPanel {
 
     private void loadTileImages() {
         // "image/maptile" 디렉터리에서 타일 이미지 로드
-        tileImages = new BufferedImage[126]; // 126개의 이미지를 사용
+        tileImages = new BufferedImage[126];
 
         for (int i = 0; i < 126; i++) {
             try {
@@ -77,13 +77,11 @@ public class MapPanel extends JPanel {
         super.paintComponent(g);
 
         if (map != null && tileImages != null) {
-            // 맵을 그립니다.
             for (int row = 0; row < map.length; row++) {
                 for (int col = 0; col < map[row].length; col++) {
                     int tileValue = map[row][col];
 
                     if (tileValue >= 0 && tileValue < tileImages.length) {
-                        // 유효한 타일 값일 때만 이미지를 그립니다.
                         BufferedImage tileImage = tileImages[tileValue];
                         g.drawImage(tileImage, col * TILE_SIZE, row * TILE_SIZE, this);
                     }
