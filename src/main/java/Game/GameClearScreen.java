@@ -7,47 +7,72 @@ import java.awt.event.ActionListener;
 
 public class GameClearScreen extends JFrame {
     public GameClearScreen() {
-        // 프레임 설정
-        setTitle("Game Clear");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setSize(1366, 760); // 크기 변경
-        setLocationRelativeTo(null); // 화면 중앙에 표시
+        try {
+            // 프레임 설정
+            setTitle("게임 클리어");
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setResizable(false);
+            setSize(1366, 760); // 크기 변경
+            setLocationRelativeTo(null); // 화면 중앙에 표시
 
-        // 배경 이미지 설정
-        ImageIcon backgroundIcon = new ImageIcon("image/forest-2d-tileset/Background/Background.png");
-        Image backgroundImage = backgroundIcon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon scaledBackgroundIcon = new ImageIcon(backgroundImage);
-        JLabel backgroundLabel = new JLabel(scaledBackgroundIcon);
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
-
-        // 게임 클리어 문구 설정
-        JLabel clearLabel = new JLabel("1번째 여정 완료!!");
-        clearLabel.setForeground(Color.ORANGE);
-        clearLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        clearLabel.setHorizontalAlignment(JLabel.CENTER);
-        clearLabel.setBounds(400, 300, getWidth() - 400, 50); // 조정된 위치
-
-        // 닫기 버튼 추가
-        JButton closeButton = new JButton("닫기");
-        closeButton.setBounds(633, 650, 100, 30); // 조정된 위치
-        closeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // 화면 닫기
+            // 배경 이미지 설정
+            ImageIcon backgroundIcon = new ImageIcon("image/forest-2d-tileset/Background/Background.png");
+            Image backgroundImage = backgroundIcon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+            if (backgroundImage == null) {
+                throw new RuntimeException("배경 이미지 로딩 실패");
             }
-        });
+            ImageIcon scaledBackgroundIcon = new ImageIcon(backgroundImage);
+            JLabel backgroundLabel = new JLabel(scaledBackgroundIcon);
+            backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
 
-        // 프레임에 컴포넌트 추가
-        add(backgroundLabel);
-        add(clearLabel);
-        add(closeButton);
+            // 게임 클리어 문구 설정
+            JLabel clearLabel = new JLabel("CLEAR!");
+            clearLabel.setForeground(Color.DARK_GRAY);
+            clearLabel.setFont(new Font("Arial", Font.BOLD, 60));
+            clearLabel.setHorizontalAlignment(JLabel.CENTER);
+            clearLabel.setBounds(300, 300, getWidth() - 600, 50); // 조정된 위치
 
-        // 레이아웃 설정
-        setLayout(null);
+            // 닫기 버튼 추가
+            JButton closeButton = new JButton("닫기");
+            closeButton.setBounds(633, 650, 100, 40); // 조정된 위치 및 크기
+            closeButton.setFont(new Font("Arial", Font.BOLD, 16));
+            closeButton.setForeground(Color.WHITE);
+            closeButton.setBackground(Color.GRAY); // Set background color to gray
+            closeButton.setBorder(BorderFactory.createLineBorder(new Color(0, 51, 102), 2)); // Custom border color
 
-        // 프레임 표시
-        setVisible(true);
+            // Add a hover effect
+            closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    closeButton.setBackground(new Color(128, 128, 128)); // Darker gray on hover
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    closeButton.setBackground(Color.GRAY);
+                }
+            });
+
+            closeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose(); // 화면 닫기
+                }
+            });
+
+            // backgroundLabel에 컴포넌트 추가
+            backgroundLabel.add(clearLabel);
+            backgroundLabel.add(closeButton);
+
+            // 프레임에 backgroundLabel 추가
+            add(backgroundLabel);
+
+            // 레이아웃 설정
+            setLayout(null);
+
+            // 프레임 표시
+            setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
