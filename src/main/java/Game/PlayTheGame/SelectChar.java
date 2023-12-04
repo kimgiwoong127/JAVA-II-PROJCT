@@ -1,4 +1,4 @@
-package Game;
+package Game.PlayTheGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
