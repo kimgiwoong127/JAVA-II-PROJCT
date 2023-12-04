@@ -117,7 +117,6 @@ public class SelectChar extends JFrame {
     }
 
     private void openAnotherPage(String characterName) {
-        JFrame anotherPage = new JFrame("Another Page");
         JLabel label = new JLabel("선택된 캐릭터: " + characterName);
         label.setHorizontalAlignment(SwingConstants.CENTER);
 

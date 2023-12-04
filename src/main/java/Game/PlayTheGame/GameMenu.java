@@ -31,7 +31,7 @@ class BackgroundPanel extends JPanel {
         background = new ImageIcon(fileName).getImage();
         logo = new ImageIcon("image/game-ui/5 Logo/Logo.png").getImage();
 
-        goldLabel = new JLabel("COIN: Loading...");
+        goldLabel = new JLabel("COIN: 127");
         goldLabel.setForeground(Color.WHITE);
         add(goldLabel);
 

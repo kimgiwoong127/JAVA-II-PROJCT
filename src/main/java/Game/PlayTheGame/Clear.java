@@ -1,12 +1,20 @@
-package Game;
+package Game.PlayTheGame;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameClearScreen extends JFrame {
-    public GameClearScreen() {
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+
+public class Clear extends JFrame {
+    public Clear() {
         try {
             // 프레임 설정
             setTitle("게임 클리어");
@@ -77,6 +85,6 @@ public class GameClearScreen extends JFrame {
 
     public static void main(String[] args) {
         // 게임 클리어 화면 테스트
-        SwingUtilities.invokeLater(() -> new GameClearScreen());
+        SwingUtilities.invokeLater(() -> new Clear());
     }
 }

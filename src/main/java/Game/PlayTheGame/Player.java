@@ -23,6 +23,8 @@ public class Player {
     private Climb climbingCharacter;
     private int x = 0;
     private int y = 288;
+    private int flag_x = 635;
+    private int flag_y = 60;
     private int speed = 2;
     private boolean isWalkL = false;
     private boolean isWalkR = false;
@@ -60,6 +62,7 @@ public class Player {
         }
 
         idleCharacter.setBounds(x, y, 80, 80);
+        
 
         playerPanel = new JPanel();
         playerPanel.setSize(688, 400);
@@ -123,11 +126,18 @@ public class Player {
         }
     }
 
+    private void closeWindowAndShowClearPanel() {
+        Clear clear = new Clear();
+        clear.setVisible(true);
+    }
+
     private void movePlayer(int deltaX, int deltaY) {
         x += deltaX;
         y += deltaY;
 
-        if (isWalkL || isWalkR) {
+        if (Math.abs(x - flag_x) <= 20 && Math.abs(y - flag_y) <= 20) {
+            closeWindowAndShowClearPanel();
+        } else if (isWalkL || isWalkR) {
             walkingCharacter.setBounds(x, y, 80, 80);
             playerPanel.remove(idleCharacter);
             playerPanel.add(walkingCharacter);
@@ -152,6 +162,7 @@ public class Player {
             playerPanel.add(idleCharacter);
         }
     }
+
 
     private void updateJumpMotion() {
         y -= speed;
@@ -193,4 +204,5 @@ public class Player {
     public JPanel getPlayerPanel() {
         return playerPanel;
     }
+    
 }

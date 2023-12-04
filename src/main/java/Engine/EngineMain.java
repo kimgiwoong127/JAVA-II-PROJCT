@@ -75,8 +75,9 @@ public class EngineMain {
 
         imagePanel.add(mapEditorButton);
         imagePanel.add(objectEditorButton);
-        imagePanel.add(animationButton);
         imagePanel.add(imageSlicerButton);
+        imagePanel.add(animationButton);
+        
         
 
         imagePanel.setCenterText("JAVA GRAPHICS STUDIO");
